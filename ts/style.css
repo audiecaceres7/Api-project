@@ -147,11 +147,18 @@ a {
   gap: 1rem;
 }
 
-.inactive {
+.icon-container {
+  display: flex;
+  justify-content: end;
+  width: 100%;
+  gap: 0.5rem;
+}
+
+.switcher-btn {
+  font-size: 1.2rem;
   display: none;
 }
 
-.dislike {
-  display: none;
+.switcher-btn.active {
+  opacity: block;
 }
-

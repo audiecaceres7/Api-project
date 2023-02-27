@@ -49,14 +49,23 @@ const main = async () => {
 
 main();
 
+const setActive = (elm: Element, selector: string) => {
+    if (document.querySelector(`${selector}.active`) !== null) {
+        document.querySelector(`${selector}.active`)?.classList.remove('active');
+    } 
+    elm.classList.add('active');
+}
+
 function liked() {
-    const liked = document.querySelectorAll('.liked');
-    for (const elm of liked) {
+    const switcherBtn = '.switcher-btn';
+    const switcher = document.querySelectorAll(switcherBtn);
+    const favContainer = document.querySelector('.fav-container')! as HTMLElement;
+    for (const elm of switcher) {
         elm.addEventListener('click', function(this: any) {
             const card = this.parentElement.parentElement.parentElement;
-            const favContainer = document.querySelector('.fav-container')! as HTMLElement;
-            favContainer?.append(card);
-        });
+            setActive(elm, switcherBtn);
+            // favContainer.append(card);
+        })
     }
 };
 
