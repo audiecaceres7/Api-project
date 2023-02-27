@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script defer type="module" src="./src/main.ts"></script>
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <nav class="nav-bar">
+            <ul class="nav-items">
+                <li class="box is-active">
+                    <a data-switcher data-tab="1">Collection</a>
+                </li>
+                <li class="box">
+                    <a data-switcher data-tab="2">Favorites</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <section class="container is-active" data-page="1">
+        <div class="container-header-1">
+            <div class="section-header">Collection</div>
+            <div class="value-container">
+                <h1>Card count</h1>
+                <h1 class="counter-value"></h1>
+            </div>
+        </div>
+        <div class="collection-container">    
+        </div>
+    </section>
+    <section class="container" data-page="2">
+        <div class="container-header-2">
+            <div class="section-header">My favorites</div>
+            <div class="value-container">
+                <h1>Card count</h1>
+                <h1 class="fav-counter-value"></h1>
+            </div>
+        </div>
+        <div class="fav-container">
+            <!-- Some content goes here -->
+        </div>
+    </section>
+    <script src="https://kit.fontawesome.com/3c61ba1994.js" crossorigin="anonymous"></script>
+</body>
+</html>

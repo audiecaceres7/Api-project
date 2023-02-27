@@ -1,0 +1,157 @@
+body {
+  background-color: rgba(49, 49, 49, 0.667);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Orbitron', sans-serif;
+  width: 100vw;
+  max-width: 100vw;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+.section-header {
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.container {
+  width: 100%;
+  display: none;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  margin-top: 3rem;
+  margin-bottom: 5rem;
+}
+
+.container-header-1,
+.container-header-2 {
+  padding: 2rem 0;
+}
+
+.container.is-active {
+  display: flex;
+}
+
+.collection-container,
+.fav-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 90%;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+}
+
+.box {
+  border: 1px solid black;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.box:hover {
+  background-color: rgb(94, 111, 111);
+  color: white;
+}
+
+.box.is-active {
+  background-color:rgb(94, 111, 111);
+  color: white;
+}
+
+.nav-bar {
+  width: 100%;
+  border: 2px solid black;
+}
+
+.nav-items {
+  display: flex;
+  justify-content: space-around;
+  font-size: 1.5rem;    
+}
+
+/* Pokemon Cards */
+
+.card {
+  display: block;
+  width: 14rem;
+  height: 18rem;
+  border: 5px solid transparent;
+  border-image: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
+  border-image-slice: 1;
+  cursor: pointer;
+  box-shadow: 0px 10px 20px 0px;
+  transition: all ease-in 0.19s;
+  background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(222,168,248,1) 0%, rgba(168,222,248,1) 21.8%, rgba(189,250,205,1) 35.6%, rgba(243,250,189,1) 52.9%, rgba(250,227,189,1) 66.8%, rgba(248,172,172,1) 90%, rgba(254,211,252,1) 107.7%);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-header h3 {
+  font-weight: 900;
+  font-size: 15px;
+}
+
+.card-body {
+  width: 87%;
+  margin: 0 auto;
+}
+
+.card-img {
+  height: 6.8rem;
+  border-radius: 5px;
+  border: 2px solid black;
+  background-color: #273735;
+}
+
+.card-img img {
+  width: 110px;
+  height: 110px;
+}
+
+.description-section {
+  text-align: left;
+}
+
+.description-section h3 {
+  color: #494a4e;
+  font-weight: 900;
+  font-size: 15px;
+}
+
+.description-section i {
+  font-size: 1.5rem;
+  margin-left: 10rem;
+}
+
+.card-count {
+  font-size: 1rem;
+}
+
+.value-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.inactive {
+  display: none;
+}
+
+.dislike {
+  display: none;
+}
+
