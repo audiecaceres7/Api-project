@@ -154,11 +154,15 @@ a {
   gap: 0.5rem;
 }
 
-.switcher-btn {
-  font-size: 1.2rem;
-  display: none;
+.like,
+.dislike{
+  display: block;
+  font-size: 1.3rem;
+  transition: all ease-in 0.1s;
+  opacity: 1;
 }
 
-.switcher-btn.active {
-  opacity: block;
+.like:hover,
+.dislike:hover {
+  font-size: 1.5rem;
 }

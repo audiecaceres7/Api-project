@@ -18,8 +18,8 @@ export function renderCard(data: pokemon) {
                         <h3>Xp: ${data.xp}</h3>
                     </div>
                     <div class="icon-container">
-                        <div class="switcher-btn"><i class="fa-solid fa-folder-plus"></i></div>
-                        <div class="switcher-btn active"><i class="fa-sharp fa-solid fa-trash"></i></div>
+                        <div class="like"><i class="fa-solid fa-folder-plus"></i></div>
+                        <div class="dislike"><i class="fa-sharp fa-solid fa-trash"></i></div>
                     </div>
                 </div>
             </div>

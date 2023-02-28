@@ -43,28 +43,34 @@ const main = async () => {
     const allPokemon = await Promise.all(pokemonData);
     allPokemon.map(pokemon => collectionPokemon.push(pokemon))
     collectionPokemon.map(pokemon => renderCard(pokemon));
-    liked();
-    
+    addingToFavorites();
+    addingToCollection();
 };
 
 main();
 
-const setActive = (elm: Element, selector: string) => {
-    if (document.querySelector(`${selector}.active`) !== null) {
-        document.querySelector(`${selector}.active`)?.classList.remove('active');
-    } 
-    elm.classList.add('active');
-}
-
-function liked() {
-    const switcherBtn = '.switcher-btn';
-    const switcher = document.querySelectorAll(switcherBtn);
+function addingToFavorites() {
+    const like = document.querySelectorAll('.like');
     const favContainer = document.querySelector('.fav-container')! as HTMLElement;
-    for (const elm of switcher) {
+    for (const elm of like) {
         elm.addEventListener('click', function(this: any) {
             const card = this.parentElement.parentElement.parentElement;
-            setActive(elm, switcherBtn);
-            // favContainer.append(card);
+            if (card.parentElement.id === 'collection') {
+                favContainer.append(card);
+            } 
+        })
+    }
+};
+
+function addingToCollection() {
+    const disLike = document.querySelectorAll('.dislike');
+    const collectionContainer = document.querySelector('.collection-container')! as HTMLElement;
+    for (const elm of disLike) {
+        elm.addEventListener('click', function(this: any) {
+            const card = this.parentElement.parentElement.parentElement;
+            if (card.parentElement.id === 'favorites') {
+                collectionContainer.append(card);
+            }
         })
     }
 };
