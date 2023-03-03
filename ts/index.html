@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,900;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script defer type="module" src="./src/main.ts"></script>
     <title>Document</title>
@@ -18,6 +18,9 @@
                 <li class="box is-active">
                     <a data-switcher data-tab="1">Collection</a>
                 </li>
+                <li>
+                    <img id="logo" src="https://raw.githubusercontent.com/PokeAPI/media/master/logo/pokeapi_256.png" alt="pokeapi">
+                </li>
                 <li class="box">
                     <a data-switcher data-tab="2">Favorites</a>
                 </li>
@@ -28,22 +31,19 @@
         <div class="container-header-1">
             <div class="section-header">Collection</div>
             <div class="value-container">
-                <h1>Card count</h1>
-                <h1 class="counter-value"></h1>
+                <button class="sort-btn">Sort A - Z</button>
             </div>
         </div>
         <div class="collection-container" id="collection">    
+            <!-- some content goes here -->
         </div>
     </section>
     <section class="container" data-page="2">
         <div class="container-header-2">
             <div class="section-header">My favorites</div>
-            <div class="value-container">
-                <h1>Card count</h1>
-                <h1 class="fav-counter-value"></h1>
-            </div>
         </div>
-        <div class="fav-container" id="favorites">
+        <button class="sort-btn">Sort A - Z</button>
+        <div class="favorites-container" id="favorites">
             <!-- Some content goes here -->
         </div>
     </section>

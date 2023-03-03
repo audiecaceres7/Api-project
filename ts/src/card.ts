@@ -16,10 +16,11 @@ export function renderCard(data: pokemon) {
                     <div class="description-section">
                         <h3>Attack: ${data.abilitie}</h3>
                         <h3>Xp: ${data.xp}</h3>
+                        <h3>Type: ${data.type}</h3>
                     </div>
                     <div class="icon-container">
-                        <div class="like"><i class="fa-solid fa-folder-plus"></i></div>
-                        <div class="dislike"><i class="fa-sharp fa-solid fa-trash"></i></div>
+                        <span class="switcher-btn active"><i class="fa-solid fa-folder-plus"></i></span>
+                        <span class="switcher-btn"><i class="fa-sharp fa-solid fa-trash"></i></span>
                     </div>
                 </div>
             </div>

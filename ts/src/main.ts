@@ -24,7 +24,6 @@ function switchPage(pageId: string | undefined) {
     nextPage?.classList.add('is-active');
 };
 
-
 function iterate(id: number) {
     for (let i = 1; i <= id; i++) {
         const allPokemon = getData(i);
@@ -33,52 +32,86 @@ function iterate(id: number) {
 };
 
 const pokemonData: Promise<pokemon>[] = [];
+const pokemonList: pokemon[] = []
 
-const collectionPokemon: pokemon[] = [];
-const favoritePokemons: pokemon[] = [];
-
-iterate(4);
+iterate(30);
 
 const main = async () => {
     const allPokemon = await Promise.all(pokemonData);
-    allPokemon.map(pokemon => collectionPokemon.push(pokemon))
-    collectionPokemon.map(pokemon => renderCard(pokemon));
-    addingToFavorites();
-    addingToCollection();
+    allPokemon.map(pokemon => pokemonList.push(pokemon))
+    pokemonList.map(pokemon => renderCard(pokemon))
+    addingCardsToCollectionContainer();
+    removingCardsFromContainer();
+    const typeList = ['electric', 'fire', 'water', 'grass', 'bug'];
+    for (let i = 0; i < typeList.length; i++) {
+        filterTypesOfPokemon(pokemonList, typeList[i]);
+    }
+    const sortBtn = document.querySelectorAll('.sort-btn');
+    for (const elm of sortBtn) {
+        elm.addEventListener('click', function() {
+            sortingPokemonByName(pokemonList);
+        })
+    }
+    
 };
 
 main();
 
-function addingToFavorites() {
-    const like = document.querySelectorAll('.like');
-    const favContainer = document.querySelector('.fav-container')! as HTMLElement;
+function sortingPokemonByName(array: pokemon[]) {
+    const sorted = array.map(elm => elm)
+    const list = sorted.sort((a: any , z:any) => a - z);
+    return list;
+}
+
+function filterTypesOfPokemon(array: pokemon[], type: string) {
+   const list = array.filter(elm => elm.type === `${type}`);
+    const value = document.querySelector('.value-container')! as HTMLElement;
+    value.innerHTML += `<h2>${type}: ${list.length}</h2>`;
+}
+
+
+function setActive(elm: any, selector: string) {
+    if (document.querySelector(`${selector}.active`) !== null) {
+        document.querySelector(`${selector}.active`)?.classList.remove('active');
+    } 
+    elm.classList.add('active');
+}
+
+function isActive(elm: any) {
+    if (!elm.classList.contains('active')) {
+        elm.classList.add('active');
+    } else {
+        elm.classList.remove('active');
+    }
+}
+
+function addingCardsToCollectionContainer() {
+    const switcherBtn = document.querySelectorAll('.switcher-btn');
+    const like = document.querySelectorAll('.fa-folder-plus');
     for (const elm of like) {
         elm.addEventListener('click', function(this: any) {
-            const card = this.parentElement.parentElement.parentElement;
-            if (card.parentElement.id === 'collection') {
-                favContainer.append(card);
-            } 
-        })
-    }
-};
-
-function addingToCollection() {
-    const disLike = document.querySelectorAll('.dislike');
-    const collectionContainer = document.querySelector('.collection-container')! as HTMLElement;
-    for (const elm of disLike) {
-        elm.addEventListener('click', function(this: any) {
-            const card = this.parentElement.parentElement.parentElement;
-            if (card.parentElement.id === 'favorites') {
-                collectionContainer.append(card);
+            const fav = document.querySelector('.favorites-container')! as HTMLElement;
+            const card = this.parentElement.parentElement.parentElement.parentElement;
+            fav.append(card);
+            for (const elm of switcherBtn) {
+                setActive(elm, '.switcher-btn');
             }
         })
     }
-};
+}
 
-function removeItem<T>(arr: Array<T>, value: T): Array<T> { 
-    const index = arr.indexOf(value);
-    if (index > -1) {
-      arr.splice(index, 1);
-    };
-    return arr;
-};
+function removingCardsFromContainer() {
+    const switcherBtn = document.querySelectorAll('.switcher-btn');
+    const disLike = document.querySelectorAll('.fa-trash');
+    for (const elm of disLike) {
+        elm.addEventListener('click', function(this: any) {
+            const col = document.querySelector('.collection-container')! as HTMLElement;
+            const card = this.parentElement.parentElement.parentElement.parentElement;
+            col.append(card);
+            for (const elm of switcherBtn) {
+                setActive(elm, '.switcher-btn');
+                isActive(elm);
+            }
+        })
+    }
+}

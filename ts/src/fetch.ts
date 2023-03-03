@@ -5,6 +5,7 @@ export interface pokemon {
     xp: number;
     hp: number;
     image: string;
+    type: string;
 }
 
 export async function getData(id: number): Promise<pokemon> {
@@ -16,7 +17,8 @@ export async function getData(id: number): Promise<pokemon> {
         abilitie: data.abilities[0].ability.name,
         xp: data.base_experience,
         hp: data.stats[0].base_stat,
-        image: data.sprites.other['official-artwork'].front_default
+        image: data.sprites.other['official-artwork'].front_default,
+        type: data.types[0].type.name
     }
     return newPokemon;
 }
