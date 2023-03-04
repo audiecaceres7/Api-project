@@ -34,25 +34,26 @@ function iterate(id: number) {
 const pokemonData: Promise<pokemon>[] = [];
 const pokemonList: pokemon[] = []
 
-iterate(30);
+iterate(3);
 
 const main = async () => {
     const allPokemon = await Promise.all(pokemonData);
-    allPokemon.map(pokemon => pokemonList.push(pokemon))
-    pokemonList.map(pokemon => renderCard(pokemon))
-    addingCardsToCollectionContainer();
-    removingCardsFromContainer();
+    allPokemon.map(pokemon => pokemonList.push(pokemon));
+    pokemonList.map(pokemon => renderCard(pokemon));
+
+
     const typeList = ['electric', 'fire', 'water', 'grass', 'bug'];
     for (let i = 0; i < typeList.length; i++) {
         filterTypesOfPokemon(pokemonList, typeList[i]);
     }
+
     const sortBtn = document.querySelectorAll('.sort-btn');
     for (const elm of sortBtn) {
         elm.addEventListener('click', function() {
             sortingPokemonByName(pokemonList);
         })
     }
-    
+
 };
 
 main();
@@ -69,7 +70,6 @@ function filterTypesOfPokemon(array: pokemon[], type: string) {
     value.innerHTML += `<h2>${type}: ${list.length}</h2>`;
 }
 
-
 function setActive(elm: any, selector: string) {
     if (document.querySelector(`${selector}.active`) !== null) {
         document.querySelector(`${selector}.active`)?.classList.remove('active');
@@ -78,40 +78,37 @@ function setActive(elm: any, selector: string) {
 }
 
 function isActive(elm: any) {
-    if (!elm.classList.contains('active')) {
+    if (!elm.classList.includes('active')) {
         elm.classList.add('active');
     } else {
         elm.classList.remove('active');
     }
 }
 
-function addingCardsToCollectionContainer() {
+export function addingCardsToCollectionContainer() {
     const switcherBtn = document.querySelectorAll('.switcher-btn');
-    const like = document.querySelectorAll('.fa-folder-plus');
-    for (const elm of like) {
-        elm.addEventListener('click', function(this: any) {
-            const fav = document.querySelector('.favorites-container')! as HTMLElement;
-            const card = this.parentElement.parentElement.parentElement.parentElement;
-            fav.append(card);
-            for (const elm of switcherBtn) {
-                setActive(elm, '.switcher-btn');
-            }
-        })
-    }
+    const like = document.querySelector('.fa-folder-plus')! as HTMLElement;
+    const fav = document.querySelector('.favorites-container')! as HTMLElement;
+    like.addEventListener('click', function(this: any) {
+        const card = this.parentElement.parentElement.parentElement.parentElement;
+        fav.append(card);
+        for (const elm of switcherBtn) {
+            setActive(elm, '.switcher-btn');
+        }
+    })
+    
 }
 
-function removingCardsFromContainer() {
+export function removingCardsFromContainer() {
     const switcherBtn = document.querySelectorAll('.switcher-btn');
-    const disLike = document.querySelectorAll('.fa-trash');
-    for (const elm of disLike) {
-        elm.addEventListener('click', function(this: any) {
-            const col = document.querySelector('.collection-container')! as HTMLElement;
-            const card = this.parentElement.parentElement.parentElement.parentElement;
-            col.append(card);
-            for (const elm of switcherBtn) {
-                setActive(elm, '.switcher-btn');
-                isActive(elm);
-            }
-        })
-    }
+    const disLike = document.querySelector('.fa-trash')! as HTMLElement;
+    const col = document.querySelector('.collection-container')! as HTMLElement;
+    disLike.addEventListener('click', function(this: any) {
+        const card = this.parentElement.parentElement.parentElement.parentElement;
+        col.append(card);
+        for (const elm of switcherBtn) {
+            setActive(elm, '.switcher-btn');
+            isActive(elm);
+        }
+    })
 }

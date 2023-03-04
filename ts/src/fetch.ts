@@ -18,10 +18,13 @@ export async function getData(id: number): Promise<pokemon> {
         xp: data.base_experience,
         hp: data.stats[0].base_stat,
         image: data.sprites.other['official-artwork'].front_default,
-        type: data.types[0].type.name
+        type: data.types[0].type.name,
     }
     return newPokemon;
 }
+
+
+
 
 
 
