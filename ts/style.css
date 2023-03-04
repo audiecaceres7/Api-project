@@ -45,6 +45,7 @@ a {
 
 .container.is-active {
   display: flex;
+  gap: 2rem;
 }
 
 .collection-container,
