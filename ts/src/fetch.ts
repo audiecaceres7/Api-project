@@ -8,20 +8,30 @@ export interface pokemon {
     type: string;
 }
 
-export async function getData(id: number): Promise<pokemon> {
-    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
-    const data = await res.json();
-    const newPokemon: pokemon = {
-        id: data.id,
-        name: data.name,
-        abilitie: data.abilities[0].ability.name,
-        xp: data.base_experience,
-        hp: data.stats[0].base_stat,
-        image: data.sprites.other['official-artwork'].front_default,
-        type: data.types[0].type.name,
-    }
-    return newPokemon;
+function getOnePokemon( { url }: {url: string} ) {
+    return fetch(url) 
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch pokemon');
+            }
+            return response;
+        })
+        .then((response) => response.json());
 }
+
+export function gettingPokemonData() {
+    const baseUrl = 'https://pokeapi.co/api/v2/pokemon';
+    return fetch(baseUrl)
+        .then(res => res.json() as any)
+        .then(data => data.results)
+        .then((allPokemon) => {
+            const AllFetches = allPokemon.map((pokemon: { url: string; }) => 
+                getOnePokemon({ url: pokemon.url })
+        );
+        return Promise.all(AllFetches);
+    });
+}
+
 
 
 

@@ -95,16 +95,6 @@ a {
   font-size: 1.5rem;    
 }
 
-.sort-btn {
-  border: none;
-  border: 1px solid black;
-  border-radius: 10px;
-  background-color: #fec837;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
 /* Pokemon Cards */
 
 .card {
@@ -200,3 +190,29 @@ a {
   font-size: 1.5rem;
 }
 
+.toggle-container, 
+.toggle-container-2 {
+  display: flex;
+  gap: 1rem;
+  border: 2px solid black;
+  padding: 1rem;
+  border-radius: 5px;
+  background-color: rgb(108, 91, 43);
+}
+
+.sort-btn,
+.sort-btn-2 {
+  border: none;
+  border: 2px solid black;
+  border-radius: 10px;
+  background-color: #ffeab2;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer; 
+  transition: all ease-in 0.1s;
+}
+
+.sort-btn.active,
+.sort-btn-2.active {
+  background-color: #eeaf00;
+}

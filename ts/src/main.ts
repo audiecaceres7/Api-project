@@ -1,6 +1,9 @@
+import { gettingPokemonData } from "./fetch";
 import { renderCard } from "./card";
-import { getData } from "./fetch";
 import { pokemon } from "./fetch";
+import { isActive } from "./movingCard";
+import { filterTypesOfPokemon } from "./dynamicDataList";
+import { removeElement } from "./remove";
 
 const dataSwitchers = document.querySelectorAll('[data-switcher]');
 
@@ -24,74 +27,49 @@ function switchPage(pageId: string | undefined) {
     nextPage?.classList.add('is-active');
 };
 
-function iterate(id: number) {
-    for (let i = 1; i <= id; i++) {
-        const allPokemon = getData(i);
-        pokemonData.push(allPokemon);
-    };
-};
+const collection: pokemon[] = [];
+const favorites: pokemon[] = [];
 
-const pokemonData: Promise<pokemon>[] = [];
-const pokemonList: pokemon[] = []
+gettingPokemonData()
+    .then(allData => {
+        allData.forEach(pokemon => {
+        const pok: pokemon = {
+            id: pokemon.id,
+            name: pokemon.name,
+            abilitie: pokemon.abilities[0].ability.name,
+            xp: pokemon.base_experience,
+            hp: pokemon.stats[0].base_stat,
+            image: pokemon.sprites.other['official-artwork'].front_default,
+            type: pokemon.types[0].type.name,
+        }
+        collection.push(pok);
+    })
 
-iterate(30);
+    collection.map(pokemon => renderCard(pokemon));
 
-const main = async () => {
-    const allPokemon = await Promise.all(pokemonData);
-    allPokemon.map(pokemon => pokemonList.push(pokemon));
-    pokemonList.map(pokemon => renderCard(pokemon));
-    adding();
-    
-    const typeList = ['electric', 'water', 'grass', 'bug', 'fire'];
-    for (let i = 0; i < typeList.length; i++) {
-        filterTypesOfPokemon(pokemonList, typeList[i]);
-    };
-
-    const sortBtn = document.querySelectorAll('.sort-btn');
-    for (const elm of sortBtn) {
-        elm.addEventListener('click', function() {
-            const list = [];
-            const cards = document.querySelectorAll('.card');
-            const col = document.querySelector('.sort-btn')! as HTMLElement;
-            for (const elm of cards) {
-                list.push(elm.id);
-            }
-            const lol = list.sort();
-            console.log(lol);
-        })
-    }
-};
-
-main();
-
-function filterTypesOfPokemon(array: pokemon[], type: string) {
-   const list = array.filter(elm => elm.type === `${type}`);
-    const value = document.querySelector('.value-container')! as HTMLElement;
-    value.innerHTML += `<h2>${type}: ${list.length}</h2>`;
-}
-
-function isActive(elm: any) {
-    if (!elm.classList.contains('active')) {
-        elm.classList.add('active');
-    } else {
-        elm.classList.remove('active');
-    }
-}
-
-function adding() {
-    const fav = document.querySelector('.favorites-container')! as HTMLElement;
     const col = document.querySelector('.collection-container')! as HTMLElement;
+    const fav = document.querySelector('.favorites-container')! as HTMLElement;
     const cards = document.querySelectorAll(`.card`);
+    
     for (const card of cards) {
         const likeBtn = card.querySelector('.fa-folder-plus')! as HTMLElement;
-        const disLikeBtn = card.querySelector('.fa-trash')! as HTMLElement; // get all switcher buttons inside the current card
-
+        const disLikeBtn = card.querySelector('.fa-trash')! as HTMLElement;
+        
         likeBtn?.addEventListener('click', function(this: any) {
+            const card = this.parentElement.parentElement.parentElement.parentElement;
             fav.append(card);
-            console.log(card);
+            for (const elms of collection) {
+                if (elms.name === card.id) {
+                    favorites.push(elms)
+                    removeElement(collection, elms);
+
+                    console.log(collection);
+                    console.log(favorites);
+                }
+            }
             const switcherBtn = card.querySelectorAll('.switcher-btn');
-            for (const elm of switcherBtn) {
-                isActive(elm);
+            for (const btn of switcherBtn) {
+                isActive(btn);
             }
         })
         
@@ -103,4 +81,47 @@ function adding() {
             }
         })
     }
-}
+});
+
+// const typeList = ['electric', 'water', 'grass', 'bug', 'fire'];
+// for (let i = 0; i < typeList.length; i++) {
+//     filterTypesOfPokemon(collection, typeList[i]);
+// };
+
+// const sort = document.querySelector('#atoz')! as HTMLElement;
+// sort.addEventListener('click', function() {
+//     sortingAtoZ(collection, '.collection-container');
+//     sortingAtoZ(favorites, '.favorites-container');
+// })
+
+// const sortTwo = document.querySelector('#ztoa')! as HTMLElement;
+// sortTwo.addEventListener('click', function() {
+//     sortingZtoA(collection, '.collection-container');
+//     sortingZtoA(favorites, '.favorites-container');
+// })
+
+// function sortingAtoZ(array: pokemon[], selector: string) {
+//     const sortedCollection = array.sort((a, z) => a.name.localeCompare(z.name));
+//     const container = document.querySelector(`${selector}`)! as HTMLElement;
+//     container.innerHTML = '';
+//     sortedCollection.map((pokemon: pokemon) => renderCard(pokemon));
+//     btnToggleAndAppend();
+// }
+
+// function sortingZtoA(array: pokemon[], selector: string) {
+//     const sortedCollection = array.sort((a, z) => z.name.localeCompare(a.name));
+//     const container = document.querySelector(`${selector}`)! as HTMLElement;
+//     container.innerHTML = '';
+//     sortedCollection.map((pokemon: pokemon) => renderCard(pokemon));
+//     btnToggleAndAppend();
+// }
+
+// function sortingToggle(elm: any, selector: string) {
+//     if (document.querySelector(`${selector}.active`) !== null) {
+//         document.querySelector(`${selector}.active`)?.classList.remove('active');
+//     }
+//     elm.classList.add('active');
+// }
+
+
+

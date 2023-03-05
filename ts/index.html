@@ -31,7 +31,10 @@
         <div class="container-header-1">
             <div class="section-header">Collection</div>
             <div class="value-container">
-                <button class="sort-btn">Sort A - Z</button>
+                <div class="toggle-container-2">
+                    <button id="atoz" class="sort-btn active">Sort A - Z</button>
+                    <button id="ztoa" class="sort-btn">Sort Z - A</button>
+                </div>
             </div>
         </div>
         <div class="collection-container" id="collection">    
@@ -42,10 +45,11 @@
         <div class="container-header-2">
             <div class="section-header">My favorites</div>
         </div>
-        <button class="sort-btn">Sort A - Z</button>
-        <div class="favorites-container" id="favorites">
-            <!-- Some content goes here -->
+        <div class="toggle-container">
+            <button id="atoz-2" class="sort-btn-2 active">Sort A - Z</button>
+            <button id="ztoa-2" class="sort-btn-2">Sort Z - A</button>
         </div>
+        <div class="favorites-container" id="favorites"></div>
     </section>
     <script src="https://kit.fontawesome.com/3c61ba1994.js" crossorigin="anonymous"></script>
 </body>
