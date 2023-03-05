@@ -75,6 +75,15 @@ gettingPokemonData()
         
         disLikeBtn?.addEventListener('click', function(this: any) {
             col.append(card);
+            for (const elms of favorites) {
+                if (elms.name === card.id) {
+                    collection.push(elms)
+                    removeElement(favorites, elms);
+
+                    console.log(collection);
+                    console.log(favorites);
+                }
+            }
             const switcherBtn = card.querySelectorAll('.switcher-btn');
             for (const elm of switcherBtn) {
                 isActive(elm);
