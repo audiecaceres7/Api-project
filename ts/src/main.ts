@@ -1,7 +1,6 @@
 import { gettingPokemonData } from "./fetch";
-import { renderCard } from "./card";
+import { renderCard, renderFavCard } from "./card";
 import { pokemon } from "./fetch";
-import { isActive } from "./movingCard";
 import { filterTypesOfPokemon } from "./dynamicDataList";
 import { removeElement } from "./remove";
 
@@ -43,9 +42,8 @@ gettingPokemonData()
             type: pokemon.types[0].type.name,
         }
         collection.push(pok);
+        renderCard(pok);
     })
-
-    collection.map(pokemon => renderCard(pokemon));
     
     const col = document.querySelector('.collection-container');
     if (col === null) {
@@ -56,77 +54,76 @@ gettingPokemonData()
         throw new Error('fav its not defined...');
     }
 
-    addingClickEventToCard();
+    addingEventListener();
 
-    const sortingAtoZ = document.querySelectorAll('.atoz');
-    for (const btns of sortingAtoZ) {
-        btns.addEventListener('click', function(this: any) {
-            const favSort = favorites.sort((a, z) => a.name.localeCompare(z.name));
-            const colSort = collection.sort((a, z) => a.name.localeCompare(z.name));
-            const mainContainer = this.parentElement.parentElement.parentElement.parentElement;
-            const container = mainContainer.lastElementChild;
-            container.textContent = '';
-            colSort.map(pokemon => renderCard(pokemon));
-            favSort.map(pokemon => renderCardFav(pokemon));
-            addingClickEventToCard();
-        })
-    }
-
-    const sortingZtoA = document.querySelectorAll('.ztoa');
-    for (const btns of sortingZtoA) {
-        btns.addEventListener('click', function(this: any) {
-            const favSort = favorites.sort((a, z) => z.name.localeCompare(a.name));
-            const colSort = collection.sort((a, z) => z.name.localeCompare(a.name));
-            const mainContainer = this.parentElement.parentElement.parentElement.parentElement;
-            const container = mainContainer.lastElementChild;
-            container.textContent = '';
-            favSort.map(pokemon => renderCardFav(pokemon));
-            colSort.map(pokemon => renderCard(pokemon));
-            addingClickEventToCard();
-        })
-    }
-    
-    function addingClickEventToCard() {
-        const cards = document.querySelectorAll(`.card`);
+    function addingEventListener() {
+        const cards = document.querySelectorAll('.card');
         for (const card of cards) {
             const likeBtn = card.querySelector('.fa-folder-plus');
-            const disLikeBtn = card.querySelector('.fa-trash');
-            
             likeBtn?.addEventListener('click', function() {
-                fav?.append(card);
-                for (const elms of collection) {
-                    if (elms.name === card.id) {
-                        favorites.push(elms)
-                        removeElement(collection, elms);
+                for (const pokemons of collection) {
+                    if (pokemons.name === card.id) {
+                        favorites.push(pokemons)
+                        removeElement(collection, pokemons);
+                        renderFavCard(pokemons);
+                        card.remove();
     
+                        // updating list 
                         console.log(collection);
                         console.log(favorites);
+    
                     }
-                }
-                const switcherBtn = card.querySelectorAll('.switcher-btn');
-                for (const btn of switcherBtn) {
-                    isActive(btn);
                 }
             })
-            
+        }
+        
+        const favCards = document.querySelectorAll('.fav-card');
+        for (const card of favCards) {
+            const disLikeBtn = card.querySelector('.fa-trash');
             disLikeBtn?.addEventListener('click', function() {
-                col?.append(card);
-                for (const elms of favorites) {
-                    if (elms.name === card.id) {
-                        collection.push(elms)
-                        removeElement(favorites, elms);
-    
+                for (const pokemons of favorites) {
+                    if (pokemons.name === card.id) {
+                        collection.push(pokemons)
+                        removeElement(favorites, pokemons);
+                        renderCard(pokemons);
+                        card.remove();
+
+                        // Updating list
                         console.log(collection);
                         console.log(favorites);
                     }
-                }
-                const switcherBtn = card.querySelectorAll('.switcher-btn');
-                for (const btn of switcherBtn) {
-                    isActive(btn);
                 }
             })
         }
     }
+    
+    const sortBtn = document.querySelectorAll('.atoz');
+    for (const btn of sortBtn) {
+        btn.addEventListener('click', function() {
+            const colSorted = collection.sort((a, z) => a.name.localeCompare(z.name));
+            const favSorted = favorites.sort((a, z) => a.name.localeCompare(z.name));
+            col.innerHTML = '';
+            fav.innerHTML = '';
+            colSorted.map(pokemon => renderCard(pokemon));
+            favSorted.map(pokemon => renderFavCard(pokemon));
+            addingEventListener();
+        })
+    }
+
+    const sortBtnTwo = document.querySelectorAll('.ztoa');
+    for (const btn of sortBtnTwo) {
+        btn.addEventListener('click', function() {
+            const colSorted = collection.sort((a, z) => z.name.localeCompare(a.name));
+            const favSorted = favorites.sort((a, z) => z.name.localeCompare(a.name));
+            col.innerHTML = '';
+            fav.innerHTML = '';
+            colSorted.map(pokemon => renderCard(pokemon));
+            favSorted.map(pokemon => renderFavCard(pokemon));
+            addingEventListener();
+        })
+    }
+    
+
 });
 
 // const typeList = ['electric', 'water', 'grass', 'bug', 'fire'];

@@ -96,7 +96,8 @@ a {
 
 /* Pokemon Cards */
 
-.card {
+.card,
+.fav-card {
   display: block;
   width: 14rem;
   height: 18rem;
@@ -175,11 +176,7 @@ a {
   gap: 0.5rem;
 }
 
-.switcher-btn {
-  display: none;
-}
-
-.switcher-btn.active {
+.switcher-btn  {
   display: block;
   font-size: 1.5rem;
   transition: all ease-in 0.1s;
