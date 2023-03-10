@@ -46,49 +46,86 @@ gettingPokemonData()
     })
 
     collection.map(pokemon => renderCard(pokemon));
-
-    const col = document.querySelector('.collection-container')! as HTMLElement;
-    const fav = document.querySelector('.favorites-container')! as HTMLElement;
-    const cards = document.querySelectorAll(`.card`);
     
-    for (const card of cards) {
-        const likeBtn = card.querySelector('.fa-folder-plus')! as HTMLElement;
-        const disLikeBtn = card.querySelector('.fa-trash')! as HTMLElement;
-        
-        likeBtn?.addEventListener('click', function(this: any) {
-            const card = this.parentElement.parentElement.parentElement.parentElement;
-            fav.append(card);
-            for (const elms of collection) {
-                if (elms.name === card.id) {
-                    favorites.push(elms)
-                    removeElement(collection, elms);
+    const col = document.querySelector('.collection-container');
+    if (col === null) {
+        throw new Error('col is not defined...');
+    } 
+    const fav = document.querySelector('.favorites-container');
+    if (fav === null) {
+        throw new Error('fav its not defined...');
+    }
 
-                    console.log(collection);
-                    console.log(favorites);
-                }
-            }
-            const switcherBtn = card.querySelectorAll('.switcher-btn');
-            for (const btn of switcherBtn) {
-                isActive(btn);
-            }
-        })
-        
-        disLikeBtn?.addEventListener('click', function(this: any) {
-            col.append(card);
-            for (const elms of favorites) {
-                if (elms.name === card.id) {
-                    collection.push(elms)
-                    removeElement(favorites, elms);
+    addingClickEventToCard();
 
-                    console.log(collection);
-                    console.log(favorites);
-                }
-            }
-            const switcherBtn = card.querySelectorAll('.switcher-btn');
-            for (const elm of switcherBtn) {
-                isActive(elm);
-            }
+    const sortingAtoZ = document.querySelectorAll('.atoz');
+    for (const btns of sortingAtoZ) {
+        btns.addEventListener('click', function(this: any) {
+            const favSort = favorites.sort((a, z) => a.name.localeCompare(z.name));
+            const colSort = collection.sort((a, z) => a.name.localeCompare(z.name));
+            const mainContainer = this.parentElement.parentElement.parentElement.parentElement;
+            const container = mainContainer.lastElementChild;
+            container.textContent = '';
+            colSort.map(pokemon => renderCard(pokemon));
+            favSort.map(pokemon => renderCardFav(pokemon));
+            addingClickEventToCard();
         })
+    }
+
+    const sortingZtoA = document.querySelectorAll('.ztoa');
+    for (const btns of sortingZtoA) {
+        btns.addEventListener('click', function(this: any) {
+            const favSort = favorites.sort((a, z) => z.name.localeCompare(a.name));
+            const colSort = collection.sort((a, z) => z.name.localeCompare(a.name));
+            const mainContainer = this.parentElement.parentElement.parentElement.parentElement;
+            const container = mainContainer.lastElementChild;
+            container.textContent = '';
+            favSort.map(pokemon => renderCardFav(pokemon));
+            colSort.map(pokemon => renderCard(pokemon));
+            addingClickEventToCard();
+        })
+    }
+    
+    function addingClickEventToCard() {
+        const cards = document.querySelectorAll(`.card`);
+        for (const card of cards) {
+            const likeBtn = card.querySelector('.fa-folder-plus');
+            const disLikeBtn = card.querySelector('.fa-trash');
+            
+            likeBtn?.addEventListener('click', function() {
+                fav?.append(card);
+                for (const elms of collection) {
+                    if (elms.name === card.id) {
+                        favorites.push(elms)
+                        removeElement(collection, elms);
+    
+                        console.log(collection);
+                        console.log(favorites);
+                    }
+                }
+                const switcherBtn = card.querySelectorAll('.switcher-btn');
+                for (const btn of switcherBtn) {
+                    isActive(btn);
+                }
+            })
+            
+            disLikeBtn?.addEventListener('click', function() {
+                col?.append(card);
+                for (const elms of favorites) {
+                    if (elms.name === card.id) {
+                        collection.push(elms)
+                        removeElement(favorites, elms);
+    
+                        console.log(collection);
+                        console.log(favorites);
+                    }
+                }
+                const switcherBtn = card.querySelectorAll('.switcher-btn');
+                for (const btn of switcherBtn) {
+                    isActive(btn);
+                }
+            })
+        }
     }
 });
 
@@ -96,34 +133,6 @@ gettingPokemonData()
 // for (let i = 0; i < typeList.length; i++) {
 //     filterTypesOfPokemon(collection, typeList[i]);
 // };
-
-// const sort = document.querySelector('#atoz')! as HTMLElement;
-// sort.addEventListener('click', function() {
-//     sortingAtoZ(collection, '.collection-container');
-//     sortingAtoZ(favorites, '.favorites-container');
-// })
-
-// const sortTwo = document.querySelector('#ztoa')! as HTMLElement;
-// sortTwo.addEventListener('click', function() {
-//     sortingZtoA(collection, '.collection-container');
-//     sortingZtoA(favorites, '.favorites-container');
-// })
-
-// function sortingAtoZ(array: pokemon[], selector: string) {
-//     const sortedCollection = array.sort((a, z) => a.name.localeCompare(z.name));
-//     const container = document.querySelector(`${selector}`)! as HTMLElement;
-//     container.innerHTML = '';
-//     sortedCollection.map((pokemon: pokemon) => renderCard(pokemon));
-//     btnToggleAndAppend();
-// }
-
-// function sortingZtoA(array: pokemon[], selector: string) {
-//     const sortedCollection = array.sort((a, z) => z.name.localeCompare(a.name));
-//     const container = document.querySelector(`${selector}`)! as HTMLElement;
-//     container.innerHTML = '';
-//     sortedCollection.map((pokemon: pokemon) => renderCard(pokemon));
-//     btnToggleAndAppend();
-// }
 
 // function sortingToggle(elm: any, selector: string) {
 //     if (document.querySelector(`${selector}.active`) !== null) {

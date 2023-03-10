@@ -26,4 +26,4 @@ export function renderCard(pokemon: pokemon) {
             </div>
     `;
     container?.insertAdjacentHTML('beforeend', html);
-} 
+};

@@ -38,8 +38,7 @@ a {
   margin-bottom: 5rem;
 }
 
-.container-header-1,
-.container-header-2 {
+.container-header {
   padding: 2rem 0;
 }
 
@@ -105,7 +104,7 @@ a {
   border-image: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
   border-image-slice: 1;
   cursor: pointer;
-  box-shadow: 0px 10px 20px 0px;
+  box-shadow: 0px 1px 0px 3px black;
   transition: all ease-in 0.19s;
   background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(222,168,248,1) 0%, rgba(168,222,248,1) 21.8%, rgba(189,250,205,1) 35.6%, rgba(243,250,189,1) 52.9%, rgba(250,227,189,1) 66.8%, rgba(248,172,172,1) 90%, rgba(254,211,252,1) 107.7%);
 }
@@ -127,19 +126,19 @@ a {
 }
 
 .card-img {
-  height: 6.8rem;
+  height: 5.3rem;
   border-radius: 5px;
   border: 2px solid black;
   background-color: #273735;
 }
 
 .card-img img {
-  width: 110px;
-  height: 110px;
+  width: 125px;
+  height: 125px;
 }
 
 .description-section {
-  margin-top: 1rem;
+  margin-top: 2rem;
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
@@ -166,6 +165,7 @@ a {
   display: flex;
   align-items: center;
   gap: 3rem;
+  margin-top: 2rem;
 }
 
 .icon-container {
@@ -181,18 +181,19 @@ a {
 
 .switcher-btn.active {
   display: block;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   transition: all ease-in 0.1s;
   opacity: 1;
 }
 
 .switcher-btn:hover {
-  font-size: 1.5rem;
+  font-size: 1.7rem;
 }
 
-.toggle-container, 
-.toggle-container-2 {
+.toggle-container {
   display: flex;
+  flex-basis: 100%;
+  justify-content: center;
   gap: 1rem;
   border: 2px solid black;
   padding: 1rem;
