@@ -15,12 +15,32 @@ h3 {
   margin: 4px;
 }
 
+h2 {
+  margin: 0;
+}
+
 li {
   list-style: none;
 }
 
 a {
   text-decoration: none;
+}
+
+.nav-bar {
+  display: flex;
+  padding: 1rem;
+  width: 90%;
+  margin-inline: auto;
+}
+
+.nav-item-container {
+  margin-left: auto;
+}
+
+.nav-items {
+  display: flex;
+  gap: 2rem;
 }
 
 .section-header {
@@ -39,6 +59,7 @@ a {
 }
 
 .container-header {
+  width: 90%;
   padding: 2rem 0;
 }
 
@@ -67,6 +88,7 @@ a {
   cursor: pointer;
   transition: all ease-in 0.2s;
   height: 1rem;
+  width: 7rem;
 }
 
 #logo {
@@ -82,16 +104,6 @@ a {
   background-color: #263238;
   color: rgb(251, 251, 251);
   box-shadow: 8px 8px 0px rgb(230, 188, 50);
-}
-
-.nav-bar {
-  width: 100%;
-}
-
-.nav-items {
-  display: flex;
-  justify-content: space-around;
-  font-size: 1.5rem;    
 }
 
 /* Pokemon Cards */
@@ -165,7 +177,9 @@ a {
 .value-container {
   display: flex;
   align-items: center;
-  gap: 3rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16rem;
   margin-top: 2rem;
 }
 
@@ -196,6 +210,7 @@ a {
   padding: 1rem;
   border-radius: 5px;
   background-color: rgb(108, 91, 43);
+  max-width: 15rem;
 }
 
 .sort-btn,
@@ -213,4 +228,35 @@ a {
 .sort-btn.active,
 .sort-btn-2.active {
   background-color: #eeaf00;
+}
+
+.types-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.type-info {
+  display: flex;
+  gap: 2rem;
+  font-size: 16px;
+}
+
+.type-header {
+  width: 40%;
+  border: 2px solid rgb(30, 115, 131);
+  border-radius: 5px;
+  background-color: #49deec;
+}
+
+.type-header h2 {
+  font-size: 2rem;
+  color: #146782;
+}
+
+@media screen and (max-width: 1210px) {
+  .value-container {
+    gap: 2rem;
+  }
 }
