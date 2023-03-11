@@ -1,8 +1,10 @@
 import { gettingPokemonData } from "./fetch";
-import { renderCard, renderFavCard } from "./card";
+import { renderCard } from "./renderCards";
+import { renderFavCard } from "./renderFavCard";
 import { pokemon } from "./fetch";
 import { filterTypesOfPokemon } from "./dynamicDataList";
 import { removeElement } from "./remove";
+import { isActive } from "./checkingIfActive";
 
 const dataSwitchers = document.querySelectorAll('[data-switcher]');
 
@@ -56,12 +58,14 @@ gettingPokemonData()
         throw new Error('fav its not defined...');
     }
 
+    
     const typeList = ['electric', 'water', 'grass', 'bug', 'fire'];
     for (let i = 0; i < typeList.length; i++) {
         filterTypesOfPokemon(collection, typeList[i]);
     };
 
     addingEventListener();
+    addingDislike();
 
     function addingEventListener() {
         const cards = document.querySelectorAll('.card');
@@ -74,6 +78,7 @@ gettingPokemonData()
                         removeElement(collection, pokemons);
                         renderFavCard(pokemons);
                         card.remove();
+                        addingDislike();
     
                         // updating list 
                         console.log(collection);
@@ -83,7 +88,9 @@ gettingPokemonData()
                 }
             })
         }
+    }
 
+    function addingDislike() {
         const favCards = document.querySelectorAll('.fav-card');
         for (const card of favCards) {
             const disLikeBtn = card.querySelector('.fa-trash');
@@ -94,7 +101,7 @@ gettingPokemonData()
                         removeElement(favorites, pokemons);
                         renderCard(pokemons);
                         card.remove();
-
+                        addingEventListener();
                         // Updating list
                         console.log(collection);
                         console.log(favorites);
@@ -130,6 +137,7 @@ gettingPokemonData()
             favSorted.map(pokemon => renderFavCard(pokemon));
         }
         addingEventListener();
+        addingDislike();
     }
     
     const sortBtn = document.querySelectorAll('.atoz');
@@ -145,7 +153,18 @@ gettingPokemonData()
             sortPokemon('ztoa');
         });
     });
+
+    const toggleBox = document.querySelectorAll('.toggle-container');
+    for (const elm of toggleBox) {
+        const btn = elm.querySelectorAll('.sort-btn');
+        btn.forEach(elm => {
+            elm.addEventListener('click', function() {
+                isActive(elm, '.sort-btn');
+            })
+        })
+    };
 });
+
 
 
 

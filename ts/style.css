@@ -32,6 +32,7 @@ a {
   padding: 1rem;
   width: 90%;
   margin-inline: auto;
+  flex-wrap: wrap;
 }
 
 .nav-item-container {
@@ -41,6 +42,7 @@ a {
 .nav-items {
   display: flex;
   gap: 2rem;
+  padding: 0;
 }
 
 .section-header {
@@ -179,8 +181,8 @@ a {
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 16rem;
-  margin-top: 2rem;
+  gap: 3rem;
+  margin-top: 3rem;
 }
 
 .icon-container {
@@ -213,8 +215,7 @@ a {
   max-width: 15rem;
 }
 
-.sort-btn,
-.sort-btn-2 {
+.sort-btn {
   border: none;
   border: 2px solid black;
   border-radius: 10px;
@@ -225,15 +226,14 @@ a {
   transition: all ease-in 0.1s;
 }
 
-.sort-btn.active,
-.sort-btn-2.active {
+.sort-btn.is-active {
   background-color: #eeaf00;
 }
 
 .types-container {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 2rem;
   align-items: center;
 }
 
@@ -244,7 +244,7 @@ a {
 }
 
 .type-header {
-  width: 40%;
+  width: 12rem;
   border: 2px solid rgb(30, 115, 131);
   border-radius: 5px;
   background-color: #49deec;
@@ -255,8 +255,12 @@ a {
   color: #146782;
 }
 
-@media screen and (max-width: 1210px) {
-  .value-container {
-    gap: 2rem;
+@media screen and (max-width: 600px) {
+  .nav-bar {
+    justify-content: center;
+  }
+
+  .type-info {
+    flex-direction: column;
   }
 }
