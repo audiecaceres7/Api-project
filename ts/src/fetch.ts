@@ -19,8 +19,8 @@ function getOnePokemon( { url }: {url: string} ) {
         .then((response) => response.json());
 }
 
-export function gettingPokemonData() {
-    const baseUrl = 'https://pokeapi.co/api/v2/pokemon';
+export function gettingPokemonData(count: number) {
+    const baseUrl = `https://pokeapi.co/api/v2/pokemon?offset=0&limit=${count}`;
     return fetch(baseUrl)
         .then(res => res.json() as any)
         .then(data => data.results)
